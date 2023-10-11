@@ -1,6 +1,7 @@
 #include "ImGuiHandler.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "Logic/Scene.h"
 
 ImGuiHandler* ImGuiHandler::s_instace = nullptr;
 
@@ -34,11 +35,12 @@ void ImGuiHandler::pollEvents(sf::RenderWindow* window, sf::Event* event)
 	ImGui::SFML::ProcessEvent(*window, *event);
 }
 
-void ImGuiHandler::update(sf::Time deltaTime, sf::RenderWindow* window)
+void ImGuiHandler::update(sf::Time deltaTime, sf::RenderWindow* window, Scene* scene)
 {
 	ImGui::SFML::Update(*window, deltaTime);
 
 	ImGui::Begin("Toolbox!");
+	if (ImGui::Button("Pause")) { scene->pause(); }
 	ImGui::End();
 }
 

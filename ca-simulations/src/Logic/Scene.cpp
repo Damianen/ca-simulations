@@ -4,6 +4,7 @@
 Scene::Scene()
 {
 	m_updateTimer = 0.0f;
+	m_paused = false;
 
 	m_map[0][1] = true;
 	m_map[1][2] = true;
@@ -20,7 +21,21 @@ void Scene::update(float deltaTime)
 		calculateNextFrame();
 	}
 
-	m_updateTimer += deltaTime;
+	if (!m_paused)
+	{
+		m_updateTimer += deltaTime;
+	}
+}
+
+void Scene::pause()
+{
+	if (m_paused)
+	{
+		m_paused = false;
+		return;
+	}
+
+	m_paused = true;
 }
 
 void Scene::calculateNextFrame()

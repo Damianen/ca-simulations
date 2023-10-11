@@ -50,7 +50,7 @@ void CellularAutomata::update(sf::Time time, float deltaTime)
 
     m_Camera->update(deltaTime);
 
-    m_imHandler->update(time, m_window);
+    m_imHandler->update(time, m_window, m_scene);
 }
 
 void CellularAutomata::Render()

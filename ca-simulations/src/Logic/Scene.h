@@ -6,6 +6,7 @@ class Scene
 public:
 	Scene();
 	void update(float deltaTime);
+	void pause();
 
 	const static int s_mapSize = 100;
 	bool m_map[s_mapSize][s_mapSize]{ false };
@@ -16,5 +17,6 @@ private:
 	bool m_tempMap[s_mapSize][s_mapSize]{ false };
 
 	float m_updateTimer;
+	bool m_paused;
 };
 
