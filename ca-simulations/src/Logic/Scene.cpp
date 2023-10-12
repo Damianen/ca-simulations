@@ -1,16 +1,25 @@
 #include "Scene.h"
-#include <iostream>
+#include <algorithm>
+#include <execution>
+
 
 Scene::Scene()
 {
 	m_updateTimer = 0.0f;
 	m_paused = false;
 
-	m_map[0][1] = true;
-	m_map[1][2] = true;
-	m_map[2][0] = true;
-	m_map[2][1] = true;
-	m_map[2][2] = true;
+	for (int i = 0; i < s_mapSize; i++)
+	{
+		m_yPositions.push_back(i);
+
+		for (int j = 0; j < s_mapSize; j++)
+		{
+			if (rand() % 2)
+			{
+				m_map[i][j] = true;
+			}
+		}
+	}
 }
 
 void Scene::update(float deltaTime)
@@ -40,11 +49,13 @@ void Scene::pause()
 
 void Scene::calculateNextFrame()
 {
-	for (int x = 0; x < s_mapSize; x++)
-		for (int y = 0; y < s_mapSize; y++)
+	std::for_each(std::execution::par_unseq, std::begin(m_yPositions), std::end(m_yPositions), [&](int x)
 		{
-			m_tempMap[x][y] = checkCell(sf::Vector2i(x, y));
-		}
+			for (int y = 0; y < s_mapSize; y++)
+			{
+				m_tempMap[x][y] = checkCell(sf::Vector2i(x, y));
+			}
+		});
 
 	memcpy(m_map, m_tempMap, sizeof(bool) * s_mapSize * s_mapSize);
 }

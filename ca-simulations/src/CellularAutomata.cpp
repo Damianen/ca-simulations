@@ -55,7 +55,6 @@ void CellularAutomata::update(sf::Time time, float deltaTime)
 
 void CellularAutomata::Render()
 {
-
     m_window->clear(sf::Color::Black);
 
     m_renderer->render(m_window, m_scene);

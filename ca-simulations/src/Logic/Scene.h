@@ -8,7 +8,7 @@ public:
 	void update(float deltaTime);
 	void pause();
 
-	const static int s_mapSize = 100;
+	const static int s_mapSize = 1000;
 	bool m_map[s_mapSize][s_mapSize]{ false };
 
 private:
@@ -18,5 +18,6 @@ private:
 
 	float m_updateTimer;
 	bool m_paused;
+	std::vector<int> m_yPositions;
 };
 

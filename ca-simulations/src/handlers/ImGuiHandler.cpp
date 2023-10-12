@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "Logic/Scene.h"
+#include "Rendering/Camera.h"
 
 ImGuiHandler* ImGuiHandler::s_instace = nullptr;
 
@@ -37,10 +38,18 @@ void ImGuiHandler::pollEvents(sf::RenderWindow* window, sf::Event* event)
 
 void ImGuiHandler::update(sf::Time deltaTime, sf::RenderWindow* window, Scene* scene)
 {
+	Camera* cam = Camera::getInstance();
+
 	ImGui::SFML::Update(*window, deltaTime);
 
 	ImGui::Begin("Toolbox!");
+	
 	if (ImGui::Button("Pause")) { scene->pause(); }
+	
+	static float speed = 100.0f;
+	ImGui::SliderFloat("Camera speed", &speed, 50.0f, 500.0f);
+	cam->setSpeed(speed);
+
 	ImGui::End();
 }
 
